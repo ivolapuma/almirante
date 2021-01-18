@@ -7,8 +7,8 @@ public class Tela {
 	private final char[][] celulas;
 	private static final String LEGENDA = "0123456789abcdefghijklmnopqrstuvwxyz";
 	
-	public Tela(int tamanho) {
-		this.tamanhoTabuleiro = tamanho;
+	public Tela(int tamanhoTabuleiro) {
+		this.tamanhoTabuleiro = tamanhoTabuleiro;
 		this.tamanhoTotal = this.tamanhoTabuleiro + 6; 
 		this.celulas = new char[this.tamanhoTotal][this.tamanhoTotal];
 	}
@@ -20,7 +20,7 @@ public class Tela {
 				if (i == 0 || i == (this.tamanhoTotal-1)) {
 					this.celulas[i][j] = '-';
 				} else if (j == 0 || j == (this.tamanhoTotal-1)) {
-					this.celulas[i][j] = '|';					
+					this.celulas[i][j] = '|';
 				}
 			}
 		}
@@ -46,6 +46,21 @@ public class Tela {
 			legenda++;
 		}
 		
+	}
+	
+	public void atualizarTabuleiro(Tabuleiro tabuleiro) {
+		Posicao[][] posicoes = tabuleiro.getPosicoes();
+		int linha = 0;
+		int coluna = 0;
+		for (int i = 3; i < this.tamanhoTabuleiro+3; i++) {
+			for (int j = 3; j < this.tamanhoTabuleiro+3; j++) {
+				this.celulas[i][j] = posicoes[linha][coluna].getSimbolo();
+				//System.out.printf("\n[%d][%d] [%c]", i, j, this.celulas[i][j]);
+				coluna++;
+			}
+			linha++;
+			coluna = 0;
+		}
 	}
 	
 	public void exibir() {
